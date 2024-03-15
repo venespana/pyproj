@@ -32,12 +32,12 @@ cdef void set_context_data_dir(PJ_CONTEXT* context) except *:
 
 cdef void pyproj_context_initialize(
     PJ_CONTEXT* context,
-    bint free_context_on_error,
+    bint free_context_on_error
 ) except *:
     """
     Setup the context for pyproj
     """
-    proj_log_func(context, NULL, pyproj_log_function)
+    proj_log_func(context, NULL, pyproj_log_function) except *
     proj_context_use_proj4_init_rules(context, 1)
     proj_context_set_autoclose_database(context, 1)
     try:
@@ -49,5 +49,5 @@ cdef void pyproj_context_initialize(
 
 
 def pyproj_global_context_initialize():
-    proj_log_func(NULL, NULL, pyproj_log_function)
+    proj_log_func(NULL, NULL, pyproj_log_function) except *
     set_context_data_dir(NULL)
